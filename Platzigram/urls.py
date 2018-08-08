@@ -21,5 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('hello-world/', views.hello_world),
     path('sort/', views.sort),
-	path('greet/', views.greet)
+	path('greet/<str:name>/<int:age>/', views.greet)
 ]

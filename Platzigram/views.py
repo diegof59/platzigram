@@ -29,9 +29,11 @@ def greet(request, name, age):
 	else:
 		answer = 'Bienvenido(a), {} ;)'.format(name)
 	
+	return HttpResponse(answer)
+
 	
-
-
+	
+# -------------------------
 # Funciones auxiliares
 
 def ordenar(argument):
