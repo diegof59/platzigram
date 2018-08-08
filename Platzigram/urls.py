@@ -20,5 +20,6 @@ from Platzigram import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('hello-world/', views.hello_world),
-    path('some-funct/', views.some_funct)
+    path('sort/', views.sort),
+	path('greet/', views.greet)
 ]
