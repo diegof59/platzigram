@@ -15,12 +15,12 @@ def some_funct(request):
 	
 	nums = request.GET['nums']
 	
-	aux(nums)
+	numsOrdenada = ordenar(nums)
 	
-	return HttpResponse('Los numeros enviados son: ' + nums)
+	return HttpResponse('Los numeros enviados son: '+ nums + '<br> Los numeros ordenados son: ' + str(numsOrdenada))
 	
-def aux(argument):
+def ordenar(argument):
 
 	argumentList = argument.split(',')
-	#print(type(argumentList))
-	print(argumentList)
+	sortedList = sorted(argumentList)
+	return sortedList
