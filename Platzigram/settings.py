@@ -79,12 +79,12 @@ WSGI_APPLICATION = 'Platzigram.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
 		'NAME': 'platzigram',
         'USER': 'platzigram_admin',
         'PASSWORD': '5995',
         'HOST': 'localhost',
-        'PORT': ''
+        'PORT': '5432'
 	}
 }
 
@@ -113,7 +113,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Bogota'
 
 USE_I18N = True
 
