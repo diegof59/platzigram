@@ -10,7 +10,7 @@ class Post(models.Model):
 	photo = models.ImageField(upload_to='posts/photos')
 	
 	created = models.DateTimeField(auto_now_add=True)
-	last_modified = models.DateTimeField(auto_now=True)
+	last_modified = models.DateTimeField(auto_now=True)               
 	
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	profile = models.ForeignKey('users.Profile', on_delete=models.CASCADE)

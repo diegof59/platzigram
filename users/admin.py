@@ -4,6 +4,22 @@ from django.contrib.auth.models import User
 
 from users.models import Profile
 
+class ProfileInline(admin.StackedInline):
+
+	model = Profile
+	verbose_name_plural = 'Profiles'
+	can_delete = False
+	
+class UserAdmin(BaseAdmin):
+
+	inlines = (ProfileInline,)
+	#list_display = ('pk','username')
+	
+	
+admin.site.unregister(User)
+admin.site.register(User, UserAdmin)
+
+"""Registro de Profile en Admin como otro modulo
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
 
@@ -36,18 +52,4 @@ class ProfileAdmin(admin.ModelAdmin):
 	)
 	
 	readonly_fields = ('date_modified',)
-	
-class ProfileInline(admin.StackedInline):
-
-	model = Profile
-	verbose_name_plural = 'Profiles'
-	can_delete = False
-	
-class UserAdmin(BaseAdmin):
-
-	inlines = (ProfileInline,)
-	#list_display = ('pk','username')
-	
-	
-admin.site.unregister(User)
-admin.site.register(User, UserAdmin)
+"""

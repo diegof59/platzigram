@@ -1,5 +1,7 @@
-from django.shortcuts import render
 from datetime import datetime
+from django.shortcuts import render
+from django.http import HttpResponse
+
 
 now = datetime.now().strftime('%b %dth, %Y - %H:%M hrs')
 
@@ -37,3 +39,18 @@ posts = [
 def list_posts(request):
 	
 	return render(request, 'posts/feed.html', {'posts': posts})
+	
+"""	
+# Escribir el Html mediante un for.
+def list_posts(request):
+
+	for post in posts:
+		content = []
+		content.append(""
+				<p><strong>{title}</strong></p>
+				<p><small>{name} - <i>{timeStamp}</i></small></p>
+				<figure><image src="{photo}"/></figure>			
+			"".format(**post)
+		)
+	return HttpResponse('<br>'.join(content))
+"""
