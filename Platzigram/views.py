@@ -19,9 +19,21 @@ def sort(request):
 	nums = request.GET['nums']
 	
 	numsOrdenada = ordenar(nums)
-	#print(type(numsOrdenada))
+	
+	data = {
+		'Status': 200,
+		'OrderedList': numsOrdenada,
+		'Message': 'Success'
+	}
+	
+	return HttpResponse(json.dumps(data, indent=4), content_type='application/json')
+	"""#print(type(numsOrdenada))
 	#return HttpResponse('Los numeros enviados son: '+ nums + '<br> Los numeros ordenados son: ' + str(numsOrdenada))
-	return HttpResponse(numsOrdenada, content_type='application/json')
+	
+	#Retorna la lista convertida a JSON.
+	#jsonSortedL = json.dumps(sortedList)
+	#return HttpResponse(numsOrdenada, content_type='application/json')
+	"""
 	
 def greet(request, name, age):
 	if (age <= 12):
@@ -36,9 +48,10 @@ def greet(request, name, age):
 # -------------------------
 # Funciones auxiliares
 
+# Recibe string, convierte en lista de int y la retorna ordenada.
 def ordenar(argument):
 
 	argumentList = argument.split(',')
 	sortedList = sorted(argumentList)
-	jsonSortedL = json.dumps(sortedList)
-	return jsonSortedL
+	
+	return sortedList
