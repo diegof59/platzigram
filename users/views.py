@@ -2,6 +2,46 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 
+from django.contrib.auth.models import User
+from users.models import Profile
+
+from django.db.utils import IntegrityError
+
+# View sign up
+def signup_view(request):
+
+	if request.method == 'POST':
+		
+		username = request.POST['username']
+		password = request.POST['password']
+		password_confirm = request.POST['password_confirm']
+		
+		if password != password_confirm:
+			return render(request, 'users/signup.html',
+				{'error': 'Password and password confirmation differ.'})
+		
+		try:
+			user = User.objects.create(username=username, password=password)
+		except IntegrityError:
+			return render(request, 'users/signup.html',
+				{'error': 'Username is already in use.'})
+				
+		first_name = request.POST['first_name']
+		last_name = request.POST['last_name']
+		email = request.POST['email']
+		
+		user.first_name = first_name
+		user.last_name = last_name
+		user.email = email
+		user.save()
+		
+		profile = Profile(user=user)
+		profile.save()
+		
+		return render(request, 'users/login.html')
+		
+	return render(request, 'users/signup.html')
+
 # View login 
 def login_view(request):
 
@@ -21,6 +61,7 @@ def login_view(request):
 				)
 	return render(request, 'users/login.html')
 
+# View logout
 @login_required	
 def logout_view(request):
 
