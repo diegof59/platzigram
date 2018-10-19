@@ -67,3 +67,12 @@ def logout_view(request):
 
 	logout(request)
 	return redirect('login')
+	
+# View para actualizar datos del perfil
+@login_required
+def update_profile(request):
+
+	user = request.user
+	profile = user.profile
+	
+	return render(request, 'users/update_profile.html', {'user': user, 'profile': profile})
