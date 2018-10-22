@@ -90,7 +90,7 @@ def update_profile(request):
 	
 			profile.save()
 			
-			redirect('feed')
+			return redirect('feed')
 	else:
 		form = ProfileForm()
 	
