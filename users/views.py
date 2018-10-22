@@ -5,6 +5,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from users.models import Profile
 
+from .forms import ProfileForm
+
 from django.db.utils import IntegrityError
 
 # View sign up
@@ -75,4 +77,22 @@ def update_profile(request):
 	user = request.user
 	profile = user.profile
 	
-	return render(request, 'users/update_profile.html', {'user': user, 'profile': profile})
+	if request.method == 'POST':
+		form = ProfileForm(request.POST, request.FILES)
+		if form.is_valid():
+			
+			data = form.cleaned_data
+			
+			profile.web_site = data['web_site']
+			profile.bio = data['bio']
+			profile.phone = data['phone']
+			profile.profile_picture = data['profile_picture']
+	
+			profile.save()
+			
+			redirect('feed')
+	else:
+		form = ProfileForm()
+	
+	return render(request, 'users/update_profile.html',
+		{'user': user, 'profile': profile, 'form': form})

@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from Platzigram import views as central_views
 from posts import views as posts_views
+from posts.views import posts
 from users import views as users_views
 
 from django.conf import settings
@@ -27,7 +28,7 @@ urlpatterns = [
     path('hello-world/', central_views.hello_world, name="hello_world"),
     path('sort/', central_views.sort, name="sort_numbers"),
 	path('greet/<str:name>/<int:age>/', central_views.greet, name="greet"),
-	path('posts/', posts_views.list_posts, name="feed"),
+	path('', posts_views.list_posts, name="feed"),
 	path('users/login', users_views.login_view, name="login"),
 	path('users/logout', users_views.logout_view, name="logout"),
 	path('users/signup', users_views.signup_view, name="signup"),
