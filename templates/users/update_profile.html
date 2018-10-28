@@ -58,11 +58,9 @@
                 {# Bio field #}
                 <div class="form-group">
                     <label>Bio</label>
-                    <textarea
-                        class="form-control {% if form.bio.errors %}is-invalid{% endif %}"
-                        name="bio"
-                    >{% if form.errors %}{{ form.bio.value }}{% else %}{{ profile.bio }}{% endif %}</textarea>
-
+                    <textarea class="form-control {% if form.bio.errors %}is-invalid{% endif %}" name="bio">
+                        {% if form.errors %}{{ form.bio.value }}{% else %}{{ profile.bio }}{% endif %}
+                    </textarea>
                     <div class="invalid-feedback">
                         {% for error in form.bio.errors %}
                             {{ error }}
