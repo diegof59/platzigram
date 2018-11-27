@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import ListView, DetailView
 
 from posts.forms import PostForm
 
@@ -40,28 +42,19 @@ posts = [
 """
 
 
-@login_required
-def list_posts(request):
-    posts = Post.objects.all().order_by('created')
+class PostsFeedView(LoginRequiredMixin, ListView):
+    
+    template_name = 'posts/feed.html'
+    model = Post
+    ordering = ('-created')
+    paginate_by = 5
+    context_object_name = 'posts'
 
-    return render(request, 'posts/feed.html', {'posts': posts})
+class PostDetailView(LoginRequiredMixin, DetailView):
 
-
-"""
-# Escribir el Html mediante un for.
-def list_posts(request):
-
-    for post in posts:
-        content = []
-        content.append(""
-                <p><strong>{title}</strong></p>
-                <p><small>{name} - <i>{timeStamp}</i></small></p>
-                <figure><image src="{photo}"/></figure>			
-            "".format(**post)
-        )
-    return HttpResponse('<br>'.join(content))
-"""
-
+    template_name = 'posts/details.html'
+    query_set = Post.objects.all()
+    context_object_name = 'post'
 
 @login_required
 def create_post(request):

@@ -1,18 +1,15 @@
 {% extends "base.html" %}
 
 {% block head_content %}
-    <title>Platzigram Feed</title>
-    <meta name="description" content="Platzigram Feed">
+    <title>Platzigram</title>
+    <meta name="description" content="Platzigram">
     <meta name="author" content="">
 {% endblock %}
 
 {% block content %}
     <div class="container">
         <div class="row">
-            {% for post in posts %}
                 {% include 'posts/post_card.html' %}
-            {% endfor %}
         </div>
     </div>
-    {% include 'pagination.html' %}
 {% endblock %}
