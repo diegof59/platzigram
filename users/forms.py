@@ -25,7 +25,7 @@ class SignupForm(forms.Form):
         widget=forms.PasswordInput()
     )
 
-    first_name = forms.CharField(min_length=2, max_length=50)
+    first_name = forms.CharField(min_length=2, max_length=50, widget=forms.TextInput(attrs={'placeholder': 'Nombre', 'class': 'form-control'}))
     last_name = forms.CharField(min_length=2, max_length=50)
 
     email = forms.CharField(

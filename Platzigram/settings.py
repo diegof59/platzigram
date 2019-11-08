@@ -49,7 +49,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'users.middleware.ProfileCompletionMiddleware',
+    #'users.middleware.ProfileCompletionMiddleware',
 ]
 
 ROOT_URLCONF = 'Platzigram.urls'
@@ -77,13 +77,17 @@ WSGI_APPLICATION = 'Platzigram.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'platzigram',
-        'USER': 'platzigram_admin',
-        'PASSWORD': '5995',
-        'HOST': 'localhost',
-        'PORT': '5432'
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'platzigram.sqlite3',
     }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #     'NAME': 'platzigram',
+    #     'USER': 'platzigram_admin',
+    #     'PASSWORD': '5995',
+    #     'HOST': 'localhost',
+    #     'PORT': '5432'
+    #}
 }
 
 # Password validation
