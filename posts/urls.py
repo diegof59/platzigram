@@ -6,6 +6,6 @@ from . import views
 
 urlpatterns = [
     path('', views.PostsFeedView.as_view(), name='feed'),
-    path('posts/create/', views.create_post, name='create'),
+    path('posts/create/', views.CreatePostView.as_view(), name='create'),
     path('posts/<int:pk>/', views.PostDetailView.as_view(), name='details'),
 ]

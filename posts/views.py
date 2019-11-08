@@ -1,7 +1,6 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
+from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView
 
 from posts.forms import PostForm
 
@@ -23,19 +22,15 @@ class PostDetailView(LoginRequiredMixin, DetailView):
     query_set = Post.objects.all()
     context_object_name = 'post'
 
-@login_required
-def create_post(request):
-    user = request.user
-    profile = user.profile
+class CreatePostView(LoginRequiredMixin, CreateView):
 
-    if request.method == 'POST':
+    form_class = PostForm
+    template_name = 'posts/create.html'
+    success_url = reverse_lazy('posts:feed')
 
-        form = PostForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect('posts:feed')
-    else:
-        form = PostForm()
+    def get_context_data(self, **kwargs):
 
-    return render(request, 'posts/create.html',
-                  {'user': user, 'profile': profile, 'form': form})
+        context = super().get_context_data(**kwargs)
+        context['user'] = self.request.user
+        context['profile'] = self.request.user.profile
+        return context
