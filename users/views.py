@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import DetailView, FormView
 from django.views.generic.edit import UpdateView
+from django.contrib.auth import views as auth_views
 from django.urls import reverse, reverse_lazy
 
 from django.contrib.auth.models import User
@@ -25,21 +26,9 @@ class SignupView(FormView):
         return super().form_valid(form)
 
 # View login
-def login_view(request):
-    if request.method == 'POST':
-
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(request, username=username, password=password)
-
-        if user:
-            login(request, user)
-            return redirect('posts:feed')
-        else:
-            return render(request, 'users/login.html',
-                    {'error': 'Invalid username or password'}
-                )
-    return render(request, 'users/login.html')
+class LoginView(auth_views.LoginView):
+                
+    template_name = 'users/login.html'
 
 
 # View logout
