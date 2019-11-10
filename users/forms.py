@@ -73,13 +73,9 @@ class ProfileForm(forms.Form):
     def save(self, profile):
        
         data = self.cleaned_data
-        data = form.cleaned_data
 
         profile.web_site = data['web_site']
         profile.bio = data['bio']
         profile.phone = data['phone']
         profile.profile_picture = data['profile_picture']
-        profile.save()
-
-        profile = Profile(user=user)
         profile.save()
