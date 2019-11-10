@@ -2,8 +2,9 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import DetailView
-from django.urls import reverse
+from django.views.generic import DetailView, FormView
+from django.views.generic.edit import UpdateView
+from django.urls import reverse, reverse_lazy
 
 from django.contrib.auth.models import User
 from users.models import Profile
@@ -13,21 +14,15 @@ from .forms import ProfileForm, SignupForm
 
 
 # View sign up
-def signup_view(request):
+class SignupView(FormView):
     
-    if request.method == 'POST':
-        
-        form = SignupForm(request.POST)
-        
-        if form.is_valid():
-            
-            form.save()
-            redirect('users:login')
+    template_name = 'users/signup.html'
+    form_class = SignupForm
+    success_url = reverse_lazy('users:login')
 
-    else:
-        form = SignupForm()
-    
-    return render(request, 'users/signup.html', {'form': form})
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)
 
 # View login
 def login_view(request):
@@ -55,30 +50,24 @@ def logout_view(request):
 
 
 # View para actualizar datos del perfil
-@login_required
-def update_profile(request):
-    user = request.user
-    profile = user.profile
+class UpdateProfileView(LoginRequiredMixin, FormView):
 
-    if request.method == 'POST':
-        form = ProfileForm(request.POST, request.FILES)
-        if form.is_valid():
-            data = form.cleaned_data
+    form_class = ProfileForm
+    template_name = 'users/update_profile.html'
 
-            profile.web_site = data['web_site']
-            profile.bio = data['bio']
-            profile.phone = data['phone']
-            profile.profile_picture = data['profile_picture']
+    def form_valid(self, form):
+        
+        user = self.request.user
+        profile = user.profile
 
-            profile.save()
-            
-            profile_url = reverse('users:details', kwargs={'username': user.username})
-            return redirect(profile_url)
-    else:
-        form = ProfileForm()
+        form.save(profile)
 
-    return render(request, 'users/update_profile.html',
-                  {'user': user, 'profile': profile, 'form': form})
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        usrname = self.request.user.username
+        url = reverse_lazy('users:details', kwargs={'username': usrname})
+        return url
                   
 class UserDetailView(LoginRequiredMixin, DetailView):
     

@@ -69,3 +69,17 @@ class ProfileForm(forms.Form):
     bio = forms.CharField(max_length=500, required=False)
     phone = forms.CharField(max_length=20, required=False)
     profile_picture = forms.ImageField()
+
+    def save(self, profile):
+       
+        data = self.cleaned_data
+        data = form.cleaned_data
+
+        profile.web_site = data['web_site']
+        profile.bio = data['bio']
+        profile.phone = data['phone']
+        profile.profile_picture = data['profile_picture']
+        profile.save()
+
+        profile = Profile(user=user)
+        profile.save()
