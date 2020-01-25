@@ -6,7 +6,10 @@
 		<a class="navbar-brand pr-5" style="border-right: 1px solid #efefef;" href="{% url 'posts:feed' %}">
 			<img src="{% static 'img/instagram.png' %}" height="35" class="d-inline-block align-top"/>
 		</a>
-		<div class="collapse navbar-collapse">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigationLinks" >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+		<div class="collapse navbar-collapse" id="navigationLinks">
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item">
 					<a href="{% url 'users:details' request.user.username %}">
