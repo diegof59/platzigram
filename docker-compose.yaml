@@ -1,0 +1,23 @@
+services:
+  db:
+    image: postgres:12-alpine
+    environment:
+      - POSTGRES_USER=platzigram_admin
+      - POSTGRES_DB=platzigram
+      - POSTGRES_PASSWORD=5995
+    ports:
+      - "5430:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+  app:
+    build: .
+    image: platzigram:latest
+    ports:
+      - "8059:8000"
+    volumes:
+      - .:/app
+    command: python manage.py runserver 0.0.0.0:8000
+    depends_on:
+      - db
+volumes:
+  db-data:

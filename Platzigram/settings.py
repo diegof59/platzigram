@@ -26,7 +26,7 @@ SECRET_KEY = '6ov!m@2&n3)awh8-f4=chea2prg)9*30ezunhga+(&9o2nk&gn'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -78,18 +78,18 @@ WSGI_APPLICATION = 'Platzigram.wsgi.application'
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'platzigram.sqlite3',
-    }
     # 'default': {
-    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
-    #     'NAME': 'platzigram',
-    #     'USER': 'platzigram_admin',
-    #     'PASSWORD': '5995',
-    #     'HOST': 'localhost',
-    #     'PORT': '5432'
-    #}
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': 'platzigram.sqlite3',
+    # }
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'platzigram',
+        'USER': 'platzigram_admin',
+        'PASSWORD': '5995',
+        'HOST': 'db',
+        'PORT': '5432'
+    }
 }
 
 # Password validation
