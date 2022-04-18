@@ -14,8 +14,8 @@ from posts.models import Post
 from .forms import ProfileForm, SignupForm
 
 
-# View sign up
 class SignupView(FormView):
+    """View sign up"""
     
     template_name = 'users/signup.html'
     form_class = SignupForm
@@ -25,21 +25,21 @@ class SignupView(FormView):
         form.save()
         return super().form_valid(form)
 
-# View login
 class LoginView(auth_views.LoginView):
+    """View login"""
                 
     template_name = 'users/login.html'
 
 
-# View logout
 @login_required
 def logout_view(request):
+    """View logout"""
     logout(request)
     return redirect('users:login')
 
 
-# View para actualizar datos del perfil
 class UpdateProfileView(LoginRequiredMixin, FormView):
+    """View para actualizar datos del perfil"""
 
     form_class = ProfileForm
     template_name = 'users/update_profile.html'
@@ -59,7 +59,7 @@ class UpdateProfileView(LoginRequiredMixin, FormView):
         return url
                   
 class UserDetailView(LoginRequiredMixin, DetailView):
-    
+    """View para detalles del usuario."""
     template_name = 'users/details.html'
     slug_field = 'username'
     slug_url_kwarg = 'username'

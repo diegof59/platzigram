@@ -4,34 +4,21 @@ from django import forms
 from django.contrib.auth.models import User
 from users.models import Profile
 
-"""
-class UpdateForm(forms.ModelForm):
-    class Meta:
-        model = Profile
-        fields = ['web_site', 'bio', 'birth_date', 'phone', 'profile_picture',]
-"""
 
 class SignupForm(forms.Form):
     """Sign up form."""
 
     username = forms.CharField(min_length=4, max_length=50)
 
-    password = forms.CharField(
-        max_length=70,
-        widget=forms.PasswordInput()
-    )
-    password_confirm = forms.CharField(
-        max_length=70,
-        widget=forms.PasswordInput()
-    )
+    password = forms.CharField(max_length=70)
+    password_confirm = forms.CharField(max_length=70)
 
-    first_name = forms.CharField(min_length=2, max_length=50, widget=forms.TextInput(attrs={'placeholder': 'Nombre', 'class': 'form-control'}))
+    first_name = forms.CharField(min_length=2, max_length=50)
     last_name = forms.CharField(min_length=2, max_length=50)
 
     email = forms.CharField(
         min_length=6,
-        max_length=70,
-        widget=forms.EmailInput()
+        max_length=70
     )
 
     def clean_username(self):
@@ -64,7 +51,7 @@ class SignupForm(forms.Form):
         profile.save()
 
 class ProfileForm(forms.Form):
-    
+    """ Profile update form """
     web_site = forms.CharField(max_length=200, required=True)
     bio = forms.CharField(max_length=500, required=False)
     phone = forms.CharField(max_length=20, required=False)
@@ -79,3 +66,9 @@ class ProfileForm(forms.Form):
         profile.phone = data['phone']
         profile.profile_picture = data['profile_picture']
         profile.save()
+
+# Profile update form con ModelForm
+# class UpdateForm(forms.ModelForm):
+#     class Meta:
+#         model = Profile
+#         fields = ['web_site', 'bio', 'birth_date', 'phone', 'profile_picture',]

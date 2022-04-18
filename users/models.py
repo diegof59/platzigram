@@ -1,9 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-
-# Representa el perfil de un usuario. Se relaciona 1-1 con la clase User que provee django 
+ 
 class Profile(models.Model):
+    """ Representa el perfil de un usuario. Se relaciona 1-1 con la clase User que provee django """
     # Relacion 1-1:
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
@@ -15,6 +15,6 @@ class Profile(models.Model):
 
     profile_picture = models.ImageField(upload_to='users/pictures', blank=True, null=True)
 
-    # Representacion string, retorna username.
     def __str__(self):
+        """Representacion string, retorna username."""
         return self.user.username

@@ -10,7 +10,6 @@
 {% block content %}
 	<form method="POST" action="{% url 'users:signup' %}">
 		{% csrf_token %}
-		{% comment %}
 	 	<div class="form-group">
 			<input class="form-control" type="text" placeholder="Username" name="username" required="true"/>
 		</div>
@@ -29,9 +28,6 @@
 		<div class="form-group">
 			<input class="form-control" type="e-mail" placeholder="E-mail" name="email" required="true" />
 		</div>
-		{% endcomment %}
-		{{ form.as_p }}
-    
-		<button class="btn btn-block mt-5" type="submit">Sign Up</button>
+		<button class="btn btn-primary btn-block mt-5" type="submit">Sign Up</button>
 	</form>
 {% endblock %}

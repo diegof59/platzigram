@@ -1,3 +1,5 @@
+version: '3'
+
 services:
   db:
     image: postgres:12-alpine
@@ -10,8 +12,10 @@ services:
     volumes:
       - db-data:/var/lib/postgresql/data
   app:
-    build: .
-    image: platzigram:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    image: platzigram:dev
     ports:
       - "8059:8000"
     volumes:
